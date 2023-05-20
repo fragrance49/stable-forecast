@@ -1,0 +1,175 @@
+{% extends 'layouts/base_home.html' %}
+
+{% block title %} contact us {% endblock title %}
+
+{% block stylesheets %}
+<style>
+    /* Set the size of the div element that contains the map */
+    #map {
+      height: 800px;  /* The height is 400 pixels */
+      width: 100%;  /* The width is the width of the web page */
+     }
+     #siteNotice{
+        text-align: center;
+        font-size:20px !important;
+     } 
+     .gm-style-iw {
+        background-color: #abbdc3fa !important;
+        border: 1px solid rgba(72, 181, 233, 0.6);        
+        font-family: gothambook;
+        font-size:18px !important;
+        top: 15px !important;
+        width: 350px !important;
+}
+  </style>
+{% endblock stylesheets %}
+
+{% block content %}
+
+<!-- ***** Breadcumb Area Start ***** -->
+<div class="fancy-breadcumb-area bg-img bg-overlay" style="background-image: url(/static/assets/fancy/img/bg1.jpg);">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="breadcumb-content text-center">
+                    <h2>Weather Forecast page</h2>
+                    <a href="{% url 'current_weather' %}" class="btn fancy-btn fancy-dark">current weather</a>
+                    <a href="{% url 'historical_weather' %}" class="btn fancy-btn fancy-dark">historical weather</a>
+                    <a href="{% url 'forecast_weather' %}" class="btn fancy-btn fancy-active">weather forecast</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ***** Breadcumb Area End ***** -->
+
+
+<!-- ***** Contact Area Start ***** -->
+<div class="fancy-contact-area section-padding-100">
+    <div class="container">
+        <div class="row">
+            <select class="weather_select col-4">                
+                {% for item in hours %}
+                <option value ="{{item}}">{{ item }}hours after forecast</option>
+                <p></p>
+                {% endfor %}
+                
+              <!--48hours -->
+            </select>
+          </div>
+        <div class="row">
+            <div class="col-12">
+                <!-- Google Map -->
+                <div id="map"></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- ***** Contact Area End ***** -->
+
+{% endblock content %}
+{% block javascripts %}
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgns6XeKlsEBfrhazCbMLF7qus2NelUf4&callback=initMap">
+    </script>
+<script>
+    var hour =0;
+      $("select.weather_select").change(function(){
+          hour =$('.weather_select').val();
+          initMap();
+
+      }); 
+
+    function initMap() {
+        var myLatlng = { lat: 38, lng: -107 };
+
+        var map = new google.maps.Map(
+            document.getElementById('map'), { zoom: 7, center: myLatlng });
+
+        var infoWindow = new google.maps.InfoWindow({
+            content: 'Click the map to get observations!', position: myLatlng
+        });
+        infoWindow.open(map);
+
+        // Configure the click listener.
+        map.addListener('click', function (mapsMouseEvent) {
+            // Close the current InfoWindow.
+            infoWindow.close();
+
+            // Create a new InfoWindow.
+            infoWindow = new google.maps.InfoWindow({ position: mapsMouseEvent.latLng });
+            infoWindow.setContent(mapsMouseEvent.latLng.lng().toString());
+            var lat = mapsMouseEvent.latLng.lat();
+            var lng = mapsMouseEvent.latLng.lng();
+
+            $.ajax({
+                url: 'https://api.weatherbit.io/v2.0/forecast/hourly?lat='+lat+'&lon='+lng+'&key=3c7c57b3ef0847c598dcee99e07cdc18&hours=48',
+                type: 'GET',
+                dataType: 'json',
+                success: function(res) {  
+                // console.log(res)                    
+
+                    }
+                }).done(function(res) { 
+                console.log(res)  
+                    var city_name =res['city_name'];
+                    var timezone =res['timezone'];
+                    var item_data =[];
+                        $.each(res['data'], function(key, val){
+                            item_data.push(val)
+                        });
+                        console.log(hour)
+                        var datetime =item_data[hour].datetime;
+                        var wind_spd =item_data[hour].wind_spd;
+                        var wind_dir =item_data[hour].wind_dir;
+                        var temperature =item_data[hour].temp;
+                        var pop =item_data[hour].pop;
+                        var precip =item_data[hour].precip;
+                        var snow =item_data[hour].snow;
+                        var pres =item_data[hour].pres;
+                        var rh =item_data[hour].rh;
+                        var clouds_low =item_data[hour].clouds_low;
+                        var clouds_mid =item_data[hour].clouds_mid;
+                        var clouds_hi =item_data[hour].clouds_hi;
+                        var clouds =item_data[hour].clouds;
+                        var weather =item_data[hour].weather.description;
+                        var vis =item_data[hour].vis;
+                    
+                    
+
+                    var contentString ='<div id="content">'+
+                      '<div id="siteNotice">official observation'+
+                      '</div>'+
+                          '<div id="bodyContent">'+                    
+                          '<p>City name: '+city_name+'</p>'+
+                          '<p>Local IANA Timezone: '+timezone+'</p>'+
+                          '<p>Valid hour UTC: '+datetime+'</p>'+
+                          '<p>weather: '+weather+'</p>'+
+                          '<p>Wind speed: '+wind_spd+'m/s</p>'+
+                          '<p>Wind direction: '+wind_dir+'</p>'+
+                          '<p>temperature: '+temperature+'C</p>'+
+                          '<p>Probability of Precipitation: '+pop+'%</p>'+
+                          '<p> Accumulated liquid equivalent precipitation: '+precip+'mm</p>'+
+                          '<p>snow: '+snow+'mm</p>'+
+                          '<p>Pressure : '+pres+'mb</p>'+
+                          '<p>Relative humidity: '+rh+'%</p>'+
+                          '<p>clouds_low: '+clouds_low+'%</p>'+
+                          '<p>clouds_mid: '+clouds_mid+'%</p>'+
+                          '<p>clouds_hi: '+clouds_hi+'%</p>'+
+                          '<p>Cloud coverage: '+clouds+'%</p>'+
+                          '<p>Visibility : '+vis+'KM</p>'+
+                          '</div>'+
+                      '</div>';
+                      infoWindow.setContent(contentString);
+              
+                      infoWindow.open(map);
+                });
+
+         
+        });
+
+    }    
+</script>
+
+{% endblock javascripts %}

@@ -1,0 +1,148 @@
+{% extends 'layouts/base_home.html' %}
+
+{% block title %} weather LAB {% endblock title %}
+
+{% block stylesheets %}
+<style>
+.text-white{
+    color: white;
+}
+.price-item{
+    background-color:#4242564d;
+    color:white;
+}
+.ci-price{
+    margin-bottom: 50px;
+}
+.blog-content > h3{
+    font-size: 30px;
+    color: white;
+    padding:10% 0%;
+    text-align: center;
+}
+.pi-price > h1{
+    font-size: 50px;
+    color: black;
+    text-align: center;
+}
+h1 > span{
+    font-size: 20px;
+}
+.rapid_area{
+    width: 30%;
+    padding:2%;
+    margin:10% 30%;
+    background-color:#2e776c52;
+    
+}
+
+</style>
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+
+
+<!-- ***** Blog Area Start ***** -->
+<section class="fancy-blog-area section-padding-100-70 bg-img animated-img" style="background-image: url(/static/assets/fancy/img/blog-img/1.jpeg);">
+    <div class="container h-100">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-heading text-center">
+                    <br>
+                    <h2 class="text-white">Stable Weather Lab Pricing</h2>
+                    <p>We Are A Creative Digital Agency. Focused on Growing Brands Online</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row h-100 align-items-center fancy-hero-content">           
+            <!-- Single Blog -->
+            <div class="col-12 col-md-4">
+                <div class="single-blog-area wow fadeInUp price-item" data-wow-delay="0.5s">                 
+                    <div class="blog-content">
+                        <h3>Wx Lab Basic</h3>
+                        <div class="pi-price">
+                            <h1><sup>$</sup>0</h1>
+                            <h4>Free With Account Creation</h4>
+                        </div>
+                        <ul class="ci-price">
+                            <li>Model Data(GFS/NAM)</li>
+                            <li>precipitatain Forecast</li>
+                            <li>Jet Streams</li>
+                            <li>Basic Reader</li>
+                            <li>Ser Weather Alerts</li>
+                        </ul>
+                        <a {% if user.is_authenticated %} href="{% url 'lab_basic' %}" {% else %} href="{% url 'login' %}" {% endif %}  class="btn fancy-btn">Get Started <span class="arrow_right"></span></a>
+                    </div>
+                </div>
+            </div>
+            <!-- Single Blog -->
+            <div class="col-12 col-md-4">
+                <div class="single-blog-area wow fadeInUp price-item" data-wow-delay="1.5s">                 
+                    <div class="blog-content">
+                        <h3>Wx Lab Pro</h3>
+                        <div class="pi-price">
+                            <h1><sup>$</sup>9</h1>
+                            <h4>Per User Login/Month</h4>
+                        </div>
+                        <ul class="ci-price">
+                            <li>Model Data(GFS/NAM)</li>
+                            <li>precipitatain Forecast</li>
+                            <li>Jet Streams</li>
+                            <li>Basic Reader</li>
+                            <li>Ser Weather Alerts</li>
+                            <li>Ads Free</li>
+                        </ul>
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'lab_pro' %}" class="btn fancy-btn fancy-active">Get Started <span class="arrow_right"></span></a>                                        
+                        {% else %}
+                            <a href="{% url 'login' %}" class="btn fancy-btn fancy-active">Get Started <span class="arrow_right"></span></a>
+                        {% endif %}   
+                    </div>
+                </div>
+            </div>
+            <!-- Single Blog -->
+            <div class="col-12 col-md-4">
+                <div class="single-blog-area wow fadeInUp price-item" data-wow-delay="1s">                 
+                    <div class="blog-content">
+                        <h3>Contracted Services</h3>
+                        <div class="pi-price">
+                            <h2  style="color: black; font-size: 30px;">PRICING VARIES</h2>
+                            <h4>Contact Us For Pricing</h4>
+                        </div>
+                        <ul class="ci-price">
+                            <li>HUB Forecast</li>
+                            <li>Fuel Cost Averaging</li>
+                            <li>Basic Reader</li>
+                            <li>Ser Weather Alerts</li>
+                            
+                        </ul>
+                        <a href="#" class="btn fancy-btn">Get Started <span class="arrow_right"></span></a>
+                    </div>
+                </div>
+            </div>
+            
+            
+                 
+
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="cta-content text-center">
+                    <div class="rapid_area">
+                        <h3>Rapid TAF Request</h3>
+                        <p>Single Use or Recuring - $14.99/TAF</p>
+                        <a href="#" class="btn fancy-btn fancy-dark">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ***** Blog Area End ***** -->
+
+
+
+{% endblock content %}

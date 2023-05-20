@@ -1,0 +1,37 @@
+{% extends 'layouts/admin_base.html' %}
+
+{% block title %} UI Forms {% endblock title %}
+
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+ <!-- Main content -->
+ <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+          <div class="card col-12 col-md-6">
+            <div class="card-header">
+              <h3 class="card-title">Update User</h3>
+            </div>
+            <div class="card-body">
+               <!-- Create a Form -->
+              <form method="POST"> 
+                  {% csrf_token %} 
+                  <label>UserName</label>
+                  {{ form.username }} 
+                  <label>Email</label>
+                  {{ form.email }} 
+                  <label>Find Id</label>
+                  {{ form.find_id }} 
+                  <input type="submit" value="Save"> 
+              </form> 
+            </div>
+          </div>
+          <!-- /.card -->
+      </div>
+  </div>
+</section>
+
+
+{% endblock content %}

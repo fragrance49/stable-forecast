@@ -1,0 +1,68 @@
+{% extends 'layouts/admin_base.html' %}
+
+{% block title %} UI - Basic Table {% endblock title %}
+
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+   
+
+     <!-- Main content -->
+     <section class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title">All User</h3>
+                  <a  href="{% url 'create_user' %}"><span  class="btn btn-info float-right">
+                    <i class="fas fa-plus"></i> Add New User </span></a> 
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                  <table id="example2" class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Useremail</th>
+                        <th scope="col">find_id</th>
+                        <th scope="col">is_active</th>
+                        <th scope="col">action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for data in dataset %}
+                        <tr>
+                            <td scope="row">1</td>                   
+                            <td>{{data.username}}</td>
+                            <td>{{data.email}}</td>
+                            <td>{{data.find_id}}</td>
+                            <td>{{data.is_active}}</td>
+                            <td>
+                                {% if data.is_superuser == True %}
+                                <span></span>
+                                {% else %}
+                                <a type="button"  class="btn btn-warning btn-sm"  href="{% url 'update_user' data.id %}"> <i class="fas fa-edit"></i> </a>
+                                <a type="button"  class="btn btn-danger btn-sm"  href="{% url 'delete_user' data.id %}"> <i class="fas fa-trash"></i> </a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}                   
+                 
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+            </div>
+        </div>
+    </div>
+</section>
+  
+
+{% endblock content %}
+{% block javascripts %}
+
+{% endblock javascripts %}

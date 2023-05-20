@@ -1,0 +1,133 @@
+{% extends 'layouts/base_home.html' %}
+
+{% block title %} contact us {% endblock title %}
+
+{% block stylesheets %}
+<style>
+    /* Set the size of the div element that contains the map */
+    #map {
+      height: 800px;  /* The height is 400 pixels */
+      width: 100%;  /* The width is the width of the web page */
+     }
+     #siteNotice{
+        text-align: center;
+        font-size:20px !important;
+     } 
+     .gm-style-iw {
+        background-color: #abbdc3fa !important;
+        border: 1px solid rgba(72, 181, 233, 0.6);        
+        font-family: gothambook;
+        font-size:18px !important;
+        top: 15px !important;
+        width: 300px !important;
+}
+  </style>
+{% endblock stylesheets %}
+
+{% block content %}
+
+<!-- ***** Breadcumb Area Start ***** -->
+<div class="fancy-breadcumb-area bg-img bg-overlay" style="background-image: url(/static/assets/fancy/img/bg1.jpg);">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="breadcumb-content text-center">
+                    <h2>Historical weather page</h2>
+                    <a href="{% url 'current_weather' %}" class="btn fancy-btn fancy-dark">current weather</a>
+                    <a href="{% url 'historical_weather' %}" class="btn fancy-btn fancy-active">historical weather</a>
+                    <a href="{% url 'forecast_weather' %}" class="btn fancy-btn fancy-dark">weather forecast</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ***** Breadcumb Area End ***** -->
+
+
+<!-- ***** Contact Area Start ***** -->
+<div class="fancy-contact-area section-padding-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <!-- Google Map -->
+                <div id="map"></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- ***** Contact Area End ***** -->
+
+{% endblock content %}
+{% block javascripts %}
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgns6XeKlsEBfrhazCbMLF7qus2NelUf4&callback=initMap">
+    </script>
+<script>
+
+    function initMap() {
+        var myLatlng = { lat: 38, lng: -107 };
+
+        var map = new google.maps.Map(
+            document.getElementById('map'), { zoom: 7, center: myLatlng });
+
+        var infoWindow = new google.maps.InfoWindow({
+            content: 'Click the map to get observations!', position: myLatlng
+        });
+        infoWindow.open(map);
+
+        // Configure the click listener.
+        map.addListener('click', function (mapsMouseEvent) {
+            // Close the current InfoWindow.
+            infoWindow.close();
+
+            // Create a new InfoWindow.
+            infoWindow = new google.maps.InfoWindow({ position: mapsMouseEvent.latLng });
+            infoWindow.setContent(mapsMouseEvent.latLng.lng().toString());
+            var lat = mapsMouseEvent.latLng.lat();
+            var lng = mapsMouseEvent.latLng.lng();
+
+            $.ajax({
+                url: "https://api.weatherbit.io/v2.0/forecast/agweather?lat=" + lat + "&lon=" + lng + "&key=3c7c57b3ef0847c598dcee99e07cdc18",
+                type: 'GET',
+                dataType: 'json',
+                success: function (res) {
+
+                }
+            }).done(function (res) {
+                var item_data = [];
+                $.each(res['data'], function (key, val) {
+                    item_data.push(val)
+                });
+
+                var valid_date = item_data[1].valid_date;
+                var temperature = item_data[1].skin_temp_avg;
+                var accumulated_precipitation = item_data[1].precip;
+                var humidity = item_data[1].specific_humidity;
+                var surface_pressure = item_data[1].pres_avg;
+                var wind_speed = item_data[1].wind_10m_spd_avg;
+
+                var contentString = '<div id="weather_popup">' +
+                    '<div id="siteNotice">official observation' +
+                    '</div>' +
+                    '<div id="bodyContent">' +
+                    '<p>valid_date: ' + valid_date + '</p>' +
+                    '<p>temperature: ' + temperature + 'C</p>' +
+                    '<p>accumulated_precipitation: ' + accumulated_precipitation + 'mm</p>' +
+                    '<p>humidity: ' + humidity + 'kg/kg</p>' +
+                    '<p>surface_pressure: ' + surface_pressure + 'mb</p>' +
+                    '<p>wind_speed: ' + wind_speed + 'm/s</p>' +
+                    '</div>' +
+                    '</div>';
+                infoWindow.setContent(contentString);
+
+                infoWindow.open(map);
+            });
+
+
+        });
+
+    }    
+</script>
+
+{% endblock javascripts %}

@@ -1,0 +1,48 @@
+{% extends 'layouts/base_home.html' %}
+
+{% block title %} contact us {% endblock title %}
+
+{% block stylesheets %}
+<style>
+    .fancy-hero-content > h2 {
+        color:#12169c;
+    }
+    .lab_btn{
+        width:300px;
+        height: 90px;
+        margin: 3%;
+        font-size: 25px;
+    }
+    .lab_btn > P{
+        color: white;
+        font-size: 20px;
+    }
+    .rapid_area{
+        width: 30%;
+        padding:2%;
+        margin:10% 30%;
+        background-color:#2e776c52;
+        
+    }
+    </style>
+{% endblock stylesheets %}
+
+{% block content %}
+<!-- ***** Hero Area Start ***** -->
+<div class="fancy-hero-area bg-img bg-overlay animated-img" style="background-image: url(/static/assets/fancy/img/bg-img/1.jpeg);">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="fancy-hero-content text-center">
+                    <h2>Aviation Forecasting Solutions</h2> 
+                    <div class="btn fancy-btn fancy-active lab_btn">Weather Lab Basic<p>[Free]</p></div>
+                    <div href="#" class="btn fancy-btn lab_btn">Weather Lab Pro<p>$9.99/month</p></div>               
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ***** Hero Area End ***** -->
+ this is {{user.username}} login index page
+
+{% endblock content %}

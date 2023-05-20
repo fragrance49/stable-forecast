@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>Weather</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/static/assets/fancy/img/core-img/favicon.ico">
+
+    <!-- Core Stylesheet -->
+    <link href="/static/assets/fancy/style.css" rel="stylesheet">
+
+    <!-- Responsive CSS -->
+    <link href="/static/assets/fancy/css/responsive/responsive.css" rel="stylesheet">
+    {% block stylesheets %}{% endblock stylesheets %}
+
+</head>
+
+<body>
+    <!-- Preloader Start -->
+    <div id="preloader">
+        <div class="loader">
+            <span class="inner1"></span>
+            <span class="inner2"></span>
+            <span class="inner3"></span>
+        </div>
+    </div>
+
+    {% include 'includes/home_navigation.html' %}
+    
+    
+
+    {% block content %}
+    {% endblock content %}  
+          
+        
+
+    {% include 'includes/home_footer.html' %}
+    <!-- jQuery-2.2.4 js -->
+    <script src="/static/assets/fancy/js/jquery/jquery-2.2.4.min.js"></script>
+    <!-- Popper js -->
+    <script src="/static/assets/fancy/js/bootstrap/popper.min.js"></script>
+    <!-- Bootstrap-4 js -->
+    <script src="/static/assets/fancy/js/bootstrap/bootstrap.min.js"></script>
+    <!-- All Plugins js -->
+    <script src="/static/assets/fancy/js/others/plugins.js"></script>
+    <!-- Active JS -->
+    <script src="/static/assets/fancy/js/active.js"></script>
+    <!-- Specific Page JS goes HERE -->
+    {% block javascripts %}{% endblock javascripts %}
+</body>
+
+   

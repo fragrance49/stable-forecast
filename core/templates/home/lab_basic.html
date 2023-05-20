@@ -1,0 +1,111 @@
+{% extends 'layouts/base_home.html' %}
+
+{% block title %} weather LAB {% endblock title %}
+
+{% block stylesheets %}
+<style>
+.lab-content{
+    height: 500px;
+    background-color:#4242564d;
+    color:white;
+    padding: 5%;
+    font-size: 30px;
+}
+/* .lab-table{
+    
+} */
+
+
+</style>
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+<!-- ***** Service Area Start ***** -->
+<section class="fancy-services-area bg-img bg-overlay section-padding-100-70" style="background-image: url(/static/assets/fancy/img/blog-img/1.jpeg)">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-heading heading-white text-center">
+                    <h2>Stable Weather Lab - Basic</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row lab-content">
+            <!-- Single Service -->
+            <div class="col-12 col-md-4">
+                <div class="single-service-area text-center wow fadeInUp" data-wow-delay="0.5s">
+                    <i class="ti-ruler-pencil"></i>
+                    <h5>Model Data</h5>
+                    
+                </div>
+            </div>
+            <!-- Single Service -->
+            <div class="col-12 col-md-4">
+                <div class="single-service-area text-center wow fadeInUp" data-wow-delay="1s">
+                    <i class="ti-desktop"></i>
+                    <h5>Alert maping</h5>
+                    
+                </div>
+            </div>
+            <!-- Single Service -->
+            <div class="col-12 col-md-4">
+                <div class="single-service-area text-center wow fadeInUp" data-wow-delay="1.5s">
+                    <i class="ti-announcement"></i>
+                    <h5>Observations</h5>
+                    
+                </div>
+            </div>
+        </div>
+        <!-- contact us -->
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <!-- Contact Form -->
+                <div class="contact-form-area">
+                    <div class="section-heading">
+                        <h2>Get In Touch With Us!</h2>
+                        <p>Fill out the form below to recieve a free and confidential.</p>
+                    </div>
+                    <div class="contact-form">
+                        <form action="#" method="post">
+                            <!-- Message Input Area Start -->
+                            <div class="contact_input_area">
+                                <div class="row">
+                                    <!-- Single Input Area -->
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"  placeholder="Card Name" required>
+                                        </div>
+                                    </div>
+                                    <!-- Single Input Area -->
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="number" id="email" placeholder="Card Number" required>
+                                        </div>
+                                    </div>
+                                    <!-- Single Input Area -->
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control"  placeholder="Expiration Date" required>
+                                        </div>
+                                    </div>
+                                   
+                                    <!-- Single Input Area -->
+                                    <div class="col-12">
+                                        <button type="submit" class="btn fancy-btn fancy-dark bg-transparent">Place Order</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- ***** Service Area End ***** -->
+
+{% endblock content %}
